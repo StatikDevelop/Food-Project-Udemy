@@ -353,7 +353,9 @@ function showThanksModal(message) {
 //   .then(json => console.log(json));
 
 
-
+fetch('http://localhost:3000/menu')
+.then(item => item.json())
+.then(item => console.log(item));
 
 
 
