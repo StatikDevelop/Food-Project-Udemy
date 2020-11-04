@@ -100,7 +100,7 @@ window.addEventListener('DOMContentLoaded', () => {
 const modalTrigger = document.querySelectorAll('[data-modal]'),
       modal = document.querySelector('.modal');
 
-const modalWindowTimer = setTimeout(openModal, 5000);
+const modalWindowTimer = setTimeout(openModal, 50000);
 
 function openModal() {
     modal.classList.add('show');
@@ -233,9 +233,16 @@ const getResourses = async(url) => {
     return await res.json();
 };
 
-getResourses("http://localhost:3000/menu")
+// getResourses("http://localhost:3000/menu")
+// .then(data => {
+//     data.forEach(({img, altimg, title, descr, price}) => {
+//         new Card(img, altimg, title, descr, price).render();
+//     });
+// });
+
+axios.get("http://localhost:3000/menu")
 .then(data => {
-    data.forEach(({img, altimg, title, descr, price}) => {
+    data.data.forEach(({img, altimg, title, descr, price}) => {
         new Card(img, altimg, title, descr, price).render();
     });
 });
@@ -400,31 +407,176 @@ fetch('http://localhost:3000/menu')
 .then(item => console.log(item));
 
 
+//Slider (MY)
+
+// const slider = document.querySelector('.offer__slider');
+// const slides = document.querySelectorAll('.offer__slide');
+// const prevBtn = slider.querySelector('.offer__slider-prev');
+// const nextBtn = slider.querySelector('.offer__slider-next');
+// const slide = slider.querySelector('.offer__slide');
+
+// let currentItem = slider.querySelector('#current');
+// let totalItem = slider.querySelector('#total');
+
+// let totalSlides = 4;
+// let sliderIndex = 1;
+
+// let offset = 0;
+
+// const imgSrc = {
+//     1: "img/slider/pepper.jpg",
+//     2: "img/slider/food-12.jpg",
+//     3: "img/slider/olive-oil.jpg",
+//     4: "img/slider/paprika.jpg"
+// };
+
+// const imgAlt = {
+//     1: "pepper",
+//     2: "food",
+//     3: "oil",
+//     4: "paprika"
+// };
+
+// function renderSlide(src, alt) {
+//     slide.innerHTML = `
+//         <img src="${src}" alt="${alt}">
+//     `;
+// }
+
+// function changeNum(total = totalSlides, current = sliderIndex) {
+//     currentItem.innerHTML = current;
+//     totalItem.innerHTML = total;
+// }
+
+// prevBtn.addEventListener("click", () => {
+//     sliderIndex--;
+
+//     if (sliderIndex == 5) {
+//         sliderIndex = 1;
+//     }
+    
+//     if (sliderIndex == 0) {
+//         sliderIndex = 4;
+//     }
+
+//     if(sliderIndex < 10) {
+//         renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//         changeNum(`0${totalSlides}`, `0${sliderIndex}`);
+//     } else {
+//         renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//         changeNum(totalSlides, sliderIndex);
+//     }
+// });
+
+// nextBtn.addEventListener('click', () => {
+//     sliderIndex++;
+
+//     if (sliderIndex == 5) {
+//         sliderIndex = 1;
+//     }
+    
+//     if (sliderIndex == 0) {
+//         sliderIndex = 4;
+//     }
+
+//     if(sliderIndex < 10) {
+//         renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//         changeNum(`0${totalSlides}`, `0${sliderIndex}`);
+//     } else {
+//         renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//         changeNum(totalSlides, sliderIndex);
+//     }
+// });
+
+// if(sliderIndex < 10) {
+//     renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//     changeNum(`0${totalSlides}`, `0${sliderIndex}`);
+// } else {
+//     renderSlide(imgSrc[sliderIndex], imgAlt[sliderIndex]);
+//     changeNum(totalSlides, sliderIndex);
+// }
 
 
 
 
+//Slider 2 (IVAN PETRICENKO)
+const slides = document.querySelectorAll('.offer__slide');
+const slidesWrapper = document.querySelector('.offer__slider-wrapper');
+const slidesField = document.querySelector('.offer__slider-inner');
+const width = window.getComputedStyle(slidesWrapper).width;
+const prevBtn = document.querySelector('.offer__slider-prev');
+const nextBtn = document.querySelector('.offer__slider-next');
+
+
+let currentItem = document.querySelector('#current');
+let totalItem = document.querySelector('#total');
+
+let sliderIndex = 1;
+let offset = 0;
+
+if(slides.length < 10) {
+    totalItem.textContent = `0${slides.length}`;
+    currentItem.textContent = `0${sliderIndex}`;
+} else {
+    totalItem.textContent = slides.length;
+    currentItem.textContent = sliderIndex;
+}
 
 
 
+slidesField.style.width = 100 * slides.length + '%';
+slidesField.style.display = 'flex';
+slidesField.style.transition = '0.5s all';
 
+slidesWrapper.style.overflow = 'hidden';
 
+slides.forEach(item => {
+    item.style.width = width;
+});
 
+prevBtn.addEventListener('click', () => {
+    if (offset == 0) {
+        offset = +width.slice(0, width.length - 2) * (slides.length - 1);
+    } else {
+        offset -= +width.slice(0, width.length - 2);
+    }
 
+    slidesField.style.transform = `translateX(-${offset}px)`;
 
+    if(sliderIndex == 1) {
+        sliderIndex = slides.length;
+    } else {
+        sliderIndex--;
+    }
+    
+    if(slides.length < 10) {
+        currentItem.textContent = `0${sliderIndex}`;
+    } else {
+        currentItem.textContent = sliderIndex;
+    }
+});
 
+nextBtn.addEventListener('click', () => {
+    if (offset == +width.slice(0, width.length - 2) * (slides.length - 1)) {
+        offset = 0;
+    } else {
+        offset += +width.slice(0, width.length - 2);
+    }
 
+    slidesField.style.transform = `translateX(-${offset}px)`;
 
+    if(sliderIndex == slides.length) {
+        sliderIndex = 1;
+    } else {
+        sliderIndex++;
+    }
 
-
-
-
-
-
-
-
-
-
+    if(slides.length < 10) {
+        currentItem.textContent = `0${sliderIndex}`;
+    } else {
+        currentItem.textContent = sliderIndex;
+    }
+});
 
 
 
