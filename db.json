@@ -40,6 +40,16 @@
       "name": "userAdmin",
       "phone": "456",
       "id": 4
+    },
+    {
+      "name": "Artem",
+      "phone": "+371256687",
+      "id": 5
+    },
+    {
+      "name": "aretm",
+      "phone": "23423424234",
+      "id": 6
     }
   ]
 }
