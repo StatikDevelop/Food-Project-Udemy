@@ -115,4 +115,4 @@ function cards() {
     //         12).render();
 }
 
-module.exports = cards;
+export default cards;
