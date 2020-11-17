@@ -1,3 +1,6 @@
+var Promise = require('es6-promise-polyfill').Promise;
+import 'core-js';
+
 import calc from '../js/modules/calc';
 import cards from '../js/modules/cards';
 import form from '../js/modules/form';
