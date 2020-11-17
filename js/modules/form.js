@@ -1,25 +1,15 @@
 import {openModal, closeModal} from '../modules/modal';
+import {postData} from '../services/services';
 
-function form(modalSelector, modalWindowTimer) {
+
+function form({formSelector, modalSelector, modalWindowTimer}) {
     //Forms
 
-    const forms = document.querySelectorAll('form');
+    const forms = document.querySelectorAll(formSelector);
 
     forms.forEach(item => {
         bindPostData(item);
     });
-
-    const postData = async (url, data) => {
-        const res = await fetch(url, {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: data
-        });
-
-        return res.json();
-    };
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
@@ -53,18 +43,16 @@ function form(modalSelector, modalWindowTimer) {
 
             form.append(statusMessage);
 
-
             postData("http://localhost:3000/requests", json)
-                .then((data) => {
-                    console.log(data);
-                    showThanksModal(message.success);
-                    statusMessage.remove();
-                }).catch(() => {
-                    showThanksModal(message.failure);
-                }).finally(() => {
-                    form.reset();
-                });
-
+            .then((data) => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
+            });
 
             // request.addEventListener('load', () => {
             //     if (request.status === 200) {

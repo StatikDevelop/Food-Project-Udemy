@@ -14,10 +14,35 @@ window.addEventListener('DOMContentLoaded', () => {
 
     calc();
     cards();
-    form('.modal', modalWindowTimer);
-    modal('.modal', '[data-modal]', modalWindowTimer);
-    slider();
-    tabs();
-    timer();
-
+    form({
+        formSelector: 'form',
+        modalSelector: '.modal',
+        modalWindowTimer: modalWindowTimer
+    });
+    modal({
+        modalSelector: '.modal',
+        openTrigger: '[data-modal]',
+        modalWindowTimer: modalWindowTimer
+        
+    });
+    slider({
+        container: '.offer__slider',
+        wrapper: '.offer__slider-wrapper',
+        prevArrow: '.offer__slider-prev',
+        nextArrow: '.offer__slider-next',
+        slide: '.offer__slide',
+        totalCounter: '#total',
+        currentCounter: '#current',
+        field: '.offer__slider-inner'
+    });
+    tabs({
+        tabsSelector: '.tabheader__item',
+        tabsContentSelector: '.tabcontent',
+        tabsParentSelector: '.tabheader__items',
+        activeClass: 'tabheader__item_active'
+    });
+    timer({
+        deadline:'2020-11-30',
+        timerSelector: '.timer'
+    });
 });

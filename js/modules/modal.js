@@ -18,7 +18,7 @@ function closeModal(modalSelector) {
     document.body.style.overflow = '';
 }
 
-function modal(modalSelector, openTrigger, modalWindowTimer) {
+function modal({modalSelector, openTrigger, modalWindowTimer}) {
     // Modal
 
     const modalTrigger = document.querySelectorAll(openTrigger),

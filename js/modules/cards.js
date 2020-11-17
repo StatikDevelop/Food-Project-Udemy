@@ -1,3 +1,5 @@
+import {getResourses} from '../services/services';
+
 function cards() {
     const card = document.querySelectorAll('.menu__item');
 

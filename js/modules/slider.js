@@ -1,17 +1,17 @@
-function slider() {
+function slider({container, slide, wrapper, field, prevArrow, nextArrow, currentCounter, totalCounter}) {
     //Slider 2 (IVAN PETRICENKO)
-    const slides = document.querySelectorAll('.offer__slide');
-    const slidesWrapper = document.querySelector('.offer__slider-wrapper');
-    const slidesField = document.querySelector('.offer__slider-inner');
+    const slides = document.querySelectorAll(slide);
+    const slidesWrapper = document.querySelector(wrapper);
+    const slidesField = document.querySelector(field);
     const width = window.getComputedStyle(slidesWrapper).width;
-    const prevBtn = document.querySelector('.offer__slider-prev');
-    const nextBtn = document.querySelector('.offer__slider-next');
+    const prevBtn = document.querySelector(prevArrow);
+    const nextBtn = document.querySelector(nextArrow);
     const dots = [];
 
-    const slider = document.querySelector('.offer__slider');
+    const slider = document.querySelector(container);
 
-    let currentItem = document.querySelector('#current');
-    let totalItem = document.querySelector('#total');
+    let currentItem = document.querySelector(currentCounter);
+    let totalItem = document.querySelector(totalCounter);
 
     let sliderIndex = 1;
     let offset = 0;
